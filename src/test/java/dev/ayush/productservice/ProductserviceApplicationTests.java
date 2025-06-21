@@ -8,12 +8,5 @@ import java.util.Random;
 @SpringBootTest
 class ProductserviceApplicationTests {
 
-    @Test
-    void randomTest() {
-        Random random = new Random();
-        int number = random.nextInt();
-
-        assert(number < 100);
-    }
 
 }

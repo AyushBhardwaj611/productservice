@@ -55,12 +55,18 @@ public class FakeStoreProductServiceClient // implements ThirdPartyProductServic
 
 
     public FakeStoreProductDto getProductById(Long id) throws NotFoundException {
+
+
         RestTemplate restTemplate = restTemplateBuilder.build();
+
         ResponseEntity<FakeStoreProductDto> response =
                 restTemplate.getForEntity(specificRequestProductIDUrl, FakeStoreProductDto.class, id);
 
         FakeStoreProductDto fakeStoreProductDto = response.getBody();
         if (fakeStoreProductDto == null) {
+            throw new NotFoundException("Resource with id: " + id + " not found");
+        }
+        else if (fakeStoreProductDto.getId() != id) {
             throw new NotFoundException("Resource with id: " + id + " not found");
         }
 

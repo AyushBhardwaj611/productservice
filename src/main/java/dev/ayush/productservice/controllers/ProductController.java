@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,14 +36,49 @@ public class ProductController {
 
 
 @GetMapping
-public List<GenericProductDto> getAllProducts(){
-        return productService.GetAllProducts();
+public ResponseEntity<List<GenericProductDto>> getAllProducts(){
+
+    List<GenericProductDto> genericProductDtos = productService.GetAllProducts();
+
+    if (genericProductDtos.isEmpty()) {
+        return new ResponseEntity<>(
+                genericProductDtos,
+                HttpStatus.NOT_FOUND
+        );
+    }
+
+   /* return new ResponseEntity<>(
+            genericProductDtos,
+            HttpStatus.OK
+    );
+
+    we did this directly but this would make the test flaky when we will edit the list
+    after fetching because due to pass by value the same list will be edited and
+    it will pass the test case so we get all the data into a new list so that
+    the object reference changes and the test case fails if any editing is done*/
+
+    List<GenericProductDto> finProductsList = new ArrayList<>();
+
+    for (GenericProductDto g : genericProductDtos) {
+        finProductsList.add(g);
+    }
+
+   // finProductsList.remove(finProductsList.get(0));
+
+    return new ResponseEntity<>(
+            finProductsList,
+            HttpStatus.OK
+    );
 
 }
 
 @GetMapping("/{id}")
 public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
-    return productService.getProductById(id);
+    GenericProductDto genericProductDto = productService.getProductById(id);
+
+    if (genericProductDto == null) throw new NotFoundException("product doesnt exists");
+
+    return genericProductDto;
 }
 
 
