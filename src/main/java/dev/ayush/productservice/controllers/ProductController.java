@@ -4,6 +4,7 @@ import dev.ayush.productservice.Dtos.ExceptionDto;
 import dev.ayush.productservice.Dtos.GenericProductDto;
 import dev.ayush.productservice.Exceptions.NotFoundException;
 import dev.ayush.productservice.models.Product;
+import dev.ayush.productservice.security.TokenValidator;
 import dev.ayush.productservice.services.FakeStoreProductService;
 import dev.ayush.productservice.services.ProductService;
 import lombok.NonNull;
@@ -21,11 +22,14 @@ public class ProductController {
     // @Autowired
     // feild injection
     private ProductService productService;
+    private TokenValidator tokenValidator;
     // constructer injection is the best practice as it makes the code more readable
     // spring automatically uses autowired annotation on the constrocter injection
 
-    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService) {
+    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService,
+                             TokenValidator tokenValidator) {
         this.productService = productService;
+        this.tokenValidator = tokenValidator;
     }
 
     //setter injection

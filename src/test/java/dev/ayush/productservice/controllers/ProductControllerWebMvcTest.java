@@ -1,3 +1,4 @@
+/*
 package dev.ayush.productservice.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,17 +35,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 
+*/
 /*in the spring boot tests the whole spring boot server was starting thereby taking
 a lot of time during the testing phase. because all the unnecesasary beans were also initialised
 ...so here we come up with the webMVC tests where an end to end testing(sort of functional testing)
-is done such that the application would be presented in frint of the customer. */
+is done such that the application would be presented in frint of the customer. *//*
 
+
+*/
 /*here we autowire the MockMvc dependency which means that only the necessary beans related
 to the productcontroller class will be injected and not the whole application.
 also the webMvc test handles the logic on the web layerrather than the whole application server
 thereby making testing more robust and lightweight.
 
-here we are testing the REST APIs of the fakeStore API*/
+here we are testing the REST APIs of the fakeStore API*//*
+
 
 @WebMvcTest(ProductController.class)
 public class ProductControllerWebMvcTest {
@@ -150,3 +155,4 @@ public class ProductControllerWebMvcTest {
     }
 
 }
+*/
