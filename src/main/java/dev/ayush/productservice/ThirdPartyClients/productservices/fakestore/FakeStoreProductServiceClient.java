@@ -25,16 +25,16 @@ public class FakeStoreProductServiceClient // implements ThirdPartyProductServic
 
     private String  specificRequestProductIDUrl;
 
-    public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder,
+    private RestTemplate restTemplate;
+
+    public FakeStoreProductServiceClient(RestTemplate restTemplate,
                                          @Value("${fakeStore.Api.paths.product}") String productPathApiUrl,
                                          @Value("${fakeStore.Api.Url}") String BasicApiUrl) {
 
-        this.restTemplateBuilder = restTemplateBuilder;
+        this.restTemplate= restTemplate;
         this.requestProductBaseUrl = BasicApiUrl;
         this.specificRequestProductIDUrl = BasicApiUrl + productPathApiUrl + "/{id}";
     }
-
-
 
 
 /*    public GenericProductDto convertFakeStoreProductDtoToGenericProductDto(FakeStoreProductDto fakeStoreProductDto){
@@ -57,7 +57,7 @@ public class FakeStoreProductServiceClient // implements ThirdPartyProductServic
     public FakeStoreProductDto getProductById(Long id) throws NotFoundException {
 
 
-        RestTemplate restTemplate = restTemplateBuilder.build();
+     //   RestTemplate restTemplate = restTemplateBuilder.build();
 
         ResponseEntity<FakeStoreProductDto> response =
                 restTemplate.getForEntity(specificRequestProductIDUrl, FakeStoreProductDto.class, id);
@@ -75,7 +75,7 @@ public class FakeStoreProductServiceClient // implements ThirdPartyProductServic
 
 
     public List<FakeStoreProductDto> GetAllProducts() {
-        RestTemplate restTemplate = restTemplateBuilder.build();
+    //    RestTemplate restTemplate = restTemplateBuilder.build();
 
         ResponseEntity<FakeStoreProductDto[]> response =
                 restTemplate.getForEntity(requestProductBaseUrl, FakeStoreProductDto[].class);
@@ -85,7 +85,7 @@ public class FakeStoreProductServiceClient // implements ThirdPartyProductServic
 
 
     public FakeStoreProductDto createProduct(GenericProductDto product) {
-        RestTemplate restTemplate = restTemplateBuilder.build();
+      //  RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> response =
                 restTemplate.postForEntity(requestProductBaseUrl, product, FakeStoreProductDto.class);
 
@@ -95,7 +95,7 @@ public class FakeStoreProductServiceClient // implements ThirdPartyProductServic
 
 
     public FakeStoreProductDto deleteProductById(Long id) {
-        RestTemplate restTemplate = restTemplateBuilder.build();
+      //  RestTemplate restTemplate = restTemplateBuilder.build();
 
         RequestCallback requestCallback = restTemplate.acceptHeaderRequestCallback(FakeStoreProductDto.class);
         ResponseExtractor<ResponseEntity<FakeStoreProductDto>> responseExtractor =
@@ -109,7 +109,7 @@ public class FakeStoreProductServiceClient // implements ThirdPartyProductServic
 
 
     public FakeStoreProductDto updateProductById(Long id, GenericProductDto product) {
-        RestTemplate restTemplate = restTemplateBuilder.build();
+     //   RestTemplate restTemplate = restTemplateBuilder.build();
 
         RequestCallback requestCallback = restTemplate.httpEntityCallback(product, FakeStoreProductDto.class);
         ResponseExtractor<ResponseEntity<FakeStoreProductDto>> responseExtractor = restTemplate.responseEntityExtractor(FakeStoreProductDto.class);
