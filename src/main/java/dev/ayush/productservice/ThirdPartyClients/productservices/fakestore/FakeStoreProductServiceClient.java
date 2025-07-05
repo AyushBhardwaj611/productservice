@@ -2,6 +2,8 @@ package dev.ayush.productservice.ThirdPartyClients.productservices.fakestore;
 
 import dev.ayush.productservice.Dtos.GenericProductDto;
 import dev.ayush.productservice.Exceptions.NotFoundException;
+import dev.ayush.productservice.configs.RestTemplateConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import lombok.Builder;
@@ -15,11 +17,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-@Builder
 @Service
 public class FakeStoreProductServiceClient // implements ThirdPartyProductServiceClient --> once implemented then remove this{
 {
-    private RestTemplateBuilder restTemplateBuilder;
 
     private  String requestProductBaseUrl;
 
@@ -27,6 +27,7 @@ public class FakeStoreProductServiceClient // implements ThirdPartyProductServic
 
     private RestTemplate restTemplate;
 
+    @Autowired
     public FakeStoreProductServiceClient(RestTemplate restTemplate,
                                          @Value("${fakeStore.Api.paths.product}") String productPathApiUrl,
                                          @Value("${fakeStore.Api.Url}") String BasicApiUrl) {
@@ -58,6 +59,7 @@ public class FakeStoreProductServiceClient // implements ThirdPartyProductServic
 
 
      //   RestTemplate restTemplate = restTemplateBuilder.build();
+        System.out.println("in product service");
 
         ResponseEntity<FakeStoreProductDto> response =
                 restTemplate.getForEntity(specificRequestProductIDUrl, FakeStoreProductDto.class, id);
