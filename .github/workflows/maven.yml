@@ -45,6 +45,17 @@ jobs:
       with:
         name: Package
         path: staging/
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ vars.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build Docker image
+      run: docker build -t ayushbhardwaj611/productservice:latest .
+
+    - name: Push Docker image
+      run: docker push ayushbhardwaj611/productservice:latest
+
 
       # <<< CHANGED: This step is optional and can cause 403 if permissions or Advanced Security is not enabled
       # Uncomment below if you have Advanced Security enabled and want dependency submission
